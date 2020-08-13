@@ -1,0 +1,16 @@
+{form form}
+    <div class="payments">
+        <ul>
+            {foreach $form['payment_option']->items as $key => $label}
+                <li>
+                    <label class="container_radio">
+                        {$label}
+                        <input type="radio" n:name="payment_option:$key" checked value="{$key}">
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+            {/foreach}
+        </ul>
+    </div>
+    {input submit class => 'btn btn-primary search-form-submit col-sm-12'}
+{/form}

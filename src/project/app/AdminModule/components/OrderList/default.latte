@@ -1,0 +1,64 @@
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Client name</th>
+        <th>Driver</th>
+        <th>Transfer date</th>
+        <th>Status</th>
+        <th>Car</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Number</th>
+        <th>Client name</th>
+        <th>Driver</th>
+        <th>Transfer date</th>
+        <th>Status</th>
+        <th>Car</th>
+        <th>Actions</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    {foreach $orders as $order}
+        <tr>
+            <td>{$order->getNumber()}</td>
+            <td>{$order->getCart()->getClient()->getName()} {$order->getCart()->getClient()->getLastname()}</td>
+            {if $order->getDriver() === null}
+                <td>Not set</td>
+            {else}
+                <td>{$order->getDriver()->getSurname()}</td>
+            {/if}
+            <td>{$order->getCart()->getDate()|date:'j.n.Y H:i:s'}</td>
+            {if $order->getStatus() === $acceptedStatus}
+                <td>Accepted</td>
+            {elseif $order->getStatus() === $notAcceptedStatus}
+                <td>Not accepted</td>
+            {elseif $order->getStatus() === $cancelledStatus}
+                <td>Cancelled</td>
+            {elseif $order->getStatus() === $finishedStatus}
+                <td>Finished</td>
+            {/if}
+            <td>{$order->getCart()->getTransport()->getName()}</td>
+            <td>
+                <a href="{plink ClientOrder:edit $order->getId()}" title="Edit order">
+                    <i class="fa fa-lg fa-edit"></i>
+                </a>
+                <a href="{plink ClientOrder:renderInvoice $order->getId()}" title="Generate invoice">
+                    <i class="fa fa-lg fa-file-pdf-o "></i>
+                </a>
+                {if $order->getStatus() === $notAcceptedStatus}
+                    <a href="{plink ClientOrder:accept $order->getId()}" title="Accept order">
+                        <i class="fa fa-lg fa-check-square-o"></i>
+                    </a>
+                {/if}
+                <a href="{plink ClientOrder:assignDriver $order->getId()}" title="Assign driver">
+                    <i class="fa fa-lg fa-user-circle-o "></i>
+                </a>
+            </td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

@@ -1,0 +1,60 @@
+{block content}
+
+<main>
+    {control mainPageNavigation}
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    <div class="container margin_60">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="singlepost">
+                    <h1>Confirm booking</h1>
+                    <table class="table table-hover confirm-summary__table">
+                        <tbody>
+                            <tr>
+                                <td>Pick up date: {$pickupDate|date:'j. n. Y'}</td>
+                                <td>Pick up time: {$pickupTime|date:'H:i:s'}</td>
+                            </tr>
+                            <tr>
+                                <td>From: {$fromDestination}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>To: {$toDestination}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>With return trip: {if $twoWay === true} Yes {else} No{/if}</td>
+                                <td></td>
+                            </tr>
+                            {if $twoWay === true && $returnDate && $returnTime}
+                                <tr>
+                                    <td>Return pick up date: {$returnDate|date:'j. n. Y'}</td>
+                                    <td>Return pick up time: {$returnTime|date:'H:i'}</td>
+                                </tr>
+                            {/if}
+                            <tr>
+                                <td>Car type: {$transportName}</td>
+                                <td>Passengers: {$passengers}</td>
+                            </tr>
+                            <tr>
+                                <td>Passenger name: {$passengerName}</td>
+                                <td>Contact phone: {$phoneNumber}</td>
+                            </tr>
+                            <tr>
+                                <td>Final price per car:</td>
+                                <td><span class="confirm-final-price">{$finalPrice} €</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>Payment option</h2>
+                    <div class="confirm-payment__form">
+                        {control orderPaymentForm}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</main>
+<!--/main-->

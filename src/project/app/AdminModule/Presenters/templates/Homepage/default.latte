@@ -1,0 +1,67 @@
+{block content}
+    <h1>Dashboard</h1>
+    <div class=col">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body bg-success">
+                        <h6 class="text-uppercase text-white">Total income for last 30 days: </h6>
+                        <h1 class="display-4 text-white"> {$totalIncome}€</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body bg-info">
+                        <h6 class="text-uppercase text-white">Number of transfers in last 30 days: </h6>
+                        <h1 class="display-4 text-white"> {$numberOfTransfers}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body bg-success">
+                        <h6 class="text-uppercase text-white">Average revenue: </h6>
+                        <h1 class="display-4 text-white"> {$averageRevenue}€</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card bg-warning text-white h-100">
+                    <div class="card-body bg-warning">
+                        <h6 class="text-uppercase text-white">Number of not accepted orders:</h6>
+                        <h1 class="display-4 text-white"> {$notAcceptedOrdersAmount}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-lg-6">
+                <div class="list-group" style="margin-bottom: 15px;">
+                    <a href="#" class="list-group-item list-group-item-action active disabled">Not accepted orders</a>
+                    {if count($notAcceptedOrders) === 0}
+                        <a href="#" class="list-group-item list-group-item-action disabled">There are no orders for acceptation</a>
+                    {/if}
+                    {foreach $notAcceptedOrders as $notAcceptedOrder}
+                        <a n:href="ClientOrder:edit $notAcceptedOrder['id']" class="list-group-item list-group-item-action">
+                            {$notAcceptedOrder['date']|date:'j.n.Y '} | {$notAcceptedOrder['route']} | {$notAcceptedOrder['passengers']} people | {$notAcceptedOrder['price']}€
+                        </a>
+                    {/foreach}
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active disabled">Accepted orders</a>
+                    {if count($acceptedOrders) === 0}
+                        <a href="#" class="list-group-item list-group-item-action disabled">There are no upcoming orders</a>
+                    {/if}
+                    {foreach $acceptedOrders as $acceptedOrder}
+                        <a n:href="ClientOrder:edit $acceptedOrder['id']" class="list-group-item list-group-item-action">
+                            {$acceptedOrder['date']|date:'j.n.Y '} - {$acceptedOrder['route']}: {$acceptedOrder['passengers']} people - {$acceptedOrder['price']}€
+                        </a>
+                    {/foreach}
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
+{/block}

@@ -1,0 +1,11 @@
+{block content}
+
+<main>
+    {control mainPageNavigation}
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    <div class="container margin_60">
+        <div class="row">
+            Redirecting to the online payment
+        </div>
+    </div>
+</main>

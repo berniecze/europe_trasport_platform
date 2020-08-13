@@ -1,0 +1,42 @@
+{block content}
+
+<main>
+    {control mainPageNavigation}
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    <section class="hero_single version_5"
+             style="background-size:100% 100%; background-image: url({$destinationPhoto})">
+        <div class="wrapper">
+            <div class="container">
+                <div class="row justify-content-center pt-lg-5">
+                    <div class="col-xl-5 col-lg-6">
+                        <h3>Travel to {$destinationName}!</h3>
+                        {control findRouteForm}
+                    </div>
+                    <div class="col-xl-5 col-lg-6 text-right d-none d-lg-block">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container margin_60_35">
+        <div class="row">
+            <div class="col-lg-8">
+                <section id="description">
+                    <div class="detail_title_1">
+                        <h1>{$destinationName}</h1>
+                    </div>
+                    {$destinationDescription|noescape}
+                </section>
+            </div>
+            <div class="col-lg-8">
+                <section id="favourites">
+                    <h5>Favourite destinations</h5>
+                    {control favouritesDestinations}
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

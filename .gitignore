@@ -1,0 +1,9 @@
+/data/db/*
+/data/php-home/*
+/logs/*
+!.gitkeep
+/config/php.ini
+/docker-compose.yml
+/src/project/vendor
+/.idea
+/src/project/www/components/*

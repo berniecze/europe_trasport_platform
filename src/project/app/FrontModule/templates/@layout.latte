@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {block seo}
+        <meta name="description"
+              content="{ifset $seoDescription}{$seoDescription} Best transport across the Europe{/ifset}">
+        <meta name="keywords" content="transport, europe, cheap, trips, {ifset $seoKeywords}{$seoKeywords}{/ifset}">
+    {/block}
+    {block title}
+        <title>{ifset $title}{$title} - {/ifset}{ifset $companyName}{$companyName}{/ifset}</title>
+    {/block}
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{$basePath}/css/bootstrap.css" rel="stylesheet">
+    <link href="{$basePath}/css/style.css" rel="stylesheet">
+    <link href="{$basePath}/css/vendors.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet"/>
+    <link href="{$basePath}/css/select2-bootstrap4.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{$basePath}/css/flatpickr.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/material_green.css">
+    {block head}{/block}
+    <script src="{$basePath}/js/common_scripts.js"></script>
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+    <script>
+        $(function() {
+            $.nette.init();
+        });
+    </script>
+</head>
+
+<body>
+<div id="page">
+    {include content}
+
+    <footer>
+        {control destinationFooter}
+    </footer>
+</div>
+{block scripts}
+    <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
+    <script src="{$basePath}/js/functions.js"></script>
+    <script src="{$basePath}/assets/validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{$basePath}/js/select2.min.js"></script>
+    <script src="{$basePath}/js/main.js"></script>
+{/block}
+</body>
+</html>

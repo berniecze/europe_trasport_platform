@@ -1,0 +1,6 @@
+parameters:
+	database:
+		host: db
+		user: root
+		password: toor
+		dbname: project

@@ -1,0 +1,158 @@
+<div class="col-lg-6 col-md-6">
+    <div class="step first">
+        <h3>1. Passenger's info and address</h3>
+        <div class="tab-content checkout">
+
+            {form form}
+            <div n:foreach="$form->getErrors() as $error" class="alert alert-danger">
+                {$error}
+            </div>
+
+            <div class="tab-pane fade show active" id="tab_1" role="tabpanel" aria-labelledby="tab_1">
+                <h4 class="passenger-heading" style="margin-top: 0;">Travel info</h4>
+                {if $airportDeparture}
+                    <div class="row no-gutters">
+                        <div class="col-12 form-group pr-1">
+                            {input transport_ticket class => 'form-control', placeholder => 'Flight number'}
+                        </div>
+                    </div>
+                {/if}
+                <div class="form-group">
+                    <p style="margin-bottom: 15px;">Please specify your address</p>
+                    {input from_address class => 'form-control', placeholder => 'Pick up Address'}
+                </div>
+                <div class="form-group">
+                    {input to_address class => 'form-control', placeholder => 'Destination Address'}
+                </div>
+                <div class="form-group">
+                    <label n:name="two_way" class="container_check" id="other_addr">
+                        With return trip
+                        <input type="checkbox" n:name="two_way">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="row no-gutters">
+                    {snippet returnPriceInfo}
+                        {ifset $twoWaySelected}
+                            {if $twoWaySelected === 'true'}
+                                <div class="animated fadeIn delay-2s">
+                                    <p style="font-weight: bold; margin-bottom: 10px;">Did you know?</p>
+                                    <p>If you choose return in a same day then price for your return trip will be only
+                                       50%</p>
+                                </div>
+                            {/if}
+                        {/ifset}
+                    {/snippet}
+                </div>
+                <hr>
+                <div class="row no-gutters packages">
+                    <label class="package-header">Extra cargo for travel</label>
+                    {foreach $form['extra_cargo']->items as $key => $label}
+                        <label class="container_check package-option" id="other_addr" n:name="extra_cargo:$key">
+                            {$label}
+                            <input type="checkbox" n:name="extra_cargo:$key">
+                            <span class="checkmark"></span>
+                            <img class="icon-extra-package" src="{$basePath}/img/extra_packages/{$key}.svg"
+                                 alt="{$key}">
+                        </label>
+                    {/foreach}
+                </div>
+                <div class="row no-gutters" id="two_way_options">
+                    {if $airportArrival}
+                        <div class="col-12 form-group pr-1">
+                            {input transport_ticket_return class => 'form-control', placeholder => 'Departure ticket number'}
+                        </div>
+                    {/if}
+                </div>
+                <hr>
+                <h4 class="passenger-heading">Passenger's details</h4>
+                <div class="row no-gutters">
+                    <div class="col-6 form-group pr-1">
+                        {input name class => 'form-control', placeholder => 'Name'}
+                    </div>
+                    <div class="col-6 form-group pl-1">
+                        {input lastname class => 'form-control', placeholder => 'Last name'}
+                    </div>
+                </div>
+                <!-- /row -->
+                <div class="form-group">
+                    {input phone class => 'form-control', placeholder => 'Phone number'}
+                </div>
+                <div class="form-group">
+                    {input email class => 'form-control', placeholder => 'Email'}
+                </div>
+            </div>
+            <!-- /tab_1 -->
+        </div>
+    </div>
+    <!-- /step -->
+</div>
+<div class="col-lg-6 col-md-6">
+    <div class="step last">
+        <h3>2. Order Summary</h3>
+        <div class="box_general summary">
+            <ul>
+                <li>From <span class="float-right">{$departureName}</span></li>
+                <li>To <span class="float-right">{$arrivalName}</span></li>
+                <li>When <span class="float-right">{$date|date:'j. n. Y'}</span></li>
+                <li>When <span class="float-right">{$time|date:'H:i'}</span></li>
+                <li>Car <span class="float-right">{$car}</span></li>
+                {snippet totalPrice}
+                    {var $totalDistance = $distance}
+                    {ifset $twoWaySelected}
+                        {if $twoWaySelected === 'true'}
+                            {var $totalDistance = $distance * 2}
+                        {/if}
+                    {/ifset}
+                    {ifset $twoWaySelected}
+                        {if $twoWaySelected === 'true'}
+                            <li>With return trip</li>
+                        {else}
+                            <li>No return trip</li>
+                        {/if}
+                    {else}
+                        <li>No return trip</li>
+                    {/ifset}
+                    <li>Distance <span class="float-right">{$totalDistance} km</span></li>
+                    <li>Duration <span class="float-right">{$duration} (one way)</span></li>
+                    <li>TOTAL COST
+                        <span class="float-right">
+                            €
+                            {ifset $twoWaySelected}
+                                {if $twoWaySelected === 'true'}
+                                    {$price * 2}
+                                {else}
+                                    {$price}
+                                {/if}
+                            {else}
+                                {$price}
+                            {/ifset}
+                        </span>
+                    </li>
+                {/snippet}
+
+            </ul>
+            {input notes class => 'form-control add_bottom_15', placeholder => 'Additional notes..'}
+            <div class="form-group">
+                {label terms class => 'container_check'}<span class="checkmark"></span>
+                {/label}
+                {input terms checked => checked}
+                <a target="_blank" href="#0">Terms and conditions</a>.
+            </div>
+            {input submit class => 'btn_1 full-width cart'}
+        </div>
+        <!-- /box_general -->
+    </div>
+    <!-- /step -->
+</div>
+{/form}
+<script type="text/javascript">
+    $("#two_way_check").click(function() {
+        let isChecked = $(this).is(':checked');
+        let ajaxLink = {link twoWayTrip!};
+        $.nette.ajax({
+            url  : ajaxLink,
+            data : { selected : isChecked }
+        });
+    });
+</script>

@@ -1,0 +1,15 @@
+{
+  "name": "project",
+  "dependencies": {
+    "selectize": "0.12"
+  },
+  "directory" : "www/components",
+  "ignore": [
+  "**/.*",
+  "node_modules",
+  "bower_components",
+  "www/components",
+  "test",
+  "tests"
+  ]
+}

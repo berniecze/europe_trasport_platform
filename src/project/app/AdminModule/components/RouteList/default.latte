@@ -1,0 +1,48 @@
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Destination</th>
+        <th>Arrival</th>
+        <th>Price</th>
+        <th>Distance</th>
+        <th>Duration</th>
+        <th>Show on web</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Destination</th>
+        <th>Arrival</th>
+        <th>Price</th>
+        <th>Distance</th>
+        <th>Duration</th>
+        <th>Show on web</th>
+        <th>Actions</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    {foreach $routes as $route}
+        <tr>
+            <td>{$route->getDeparture()->getName()}</td>
+            <td>{$route->getArrival()->getName()}</td>
+            <td>{$route->getPrice()}€</td>
+            <td>{$route->getDistance()} km</td>
+            <td>{$route->getDuration()}</td>
+            {if $route->isActive()}
+                <td>YES</td>
+            {else}
+                <td>NO</td>
+            {/if}
+            <td>
+                <a href="{plink Route:edit $route->getId()}">
+                    <i class="fa fa-lg fa-edit"></i>
+                </a>
+                <a href="{plink Route:delete $route->getId()}">
+                    <i class="fa fa-lg fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

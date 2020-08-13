@@ -1,0 +1,19 @@
+{block content}
+<main>
+    {control mainPageNavigation}
+    <div class="sub_header_in sticky_header">
+        <div class="container">
+            <h1>{$title}</h1>
+        </div>
+        <!-- /container -->
+    </div>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    <div class="container margin_60_35">
+        <div class="row">
+            {$content|noescape}
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</main>
+<!--/main-->

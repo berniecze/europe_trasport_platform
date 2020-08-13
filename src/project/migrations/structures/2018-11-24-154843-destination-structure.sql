@@ -1,0 +1,10 @@
+CREATE TABLE `destination` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT DEFAULT NULL,
+  `photo` VARCHAR(255) NULL,
+  `active` INT(1) NOT NULL DEFAULT 0,
+  `type` VARCHAR(100) DEFAULT NULL,
+  `favourites` TEXT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

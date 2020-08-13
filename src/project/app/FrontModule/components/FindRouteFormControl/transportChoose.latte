@@ -1,0 +1,68 @@
+{snippet routeForm}
+    {form form}
+        <div class="row no-gutters custom-search-input-2 inner">
+            <div n:foreach="$form->getErrors() as $error" class="alert alert-danger">
+                {$error}
+            </div>
+            <div class="col-lg-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                    </div>
+                    {input date class=>'form-control formDatePicker transportChoose_input', required => true, placeholder => 'Date of departure', autocomplete => off, data-alt-format => "Y-m-d"}
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="ti-alarm-clock"></span></span>
+                    </div>
+                    {input time class=>'form-control formTimePicker transportChoose_input', required => true, placeholder => 'Time of your departure', autocomplete => off, data-alt-format => "H:i"}
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="ti-user"></span></span>
+                    </div>
+                    {input passengers class=>'form-control', required => true, min => 0}
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <select name="from" class="form-control selectize_dropdown" aria-describedby="From destination"
+                        id="from_destination">
+                    <option n:foreach="$destinationsData as $item" value="{$item[id]}"
+                                                                   data-type="{$item[type]}" {if $defaultFrom === $item[id]}selected="selected"{/if}>{$item[name]}</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <select name="to" class="form-control selectize_dropdown" aria-describedby="To destination"
+                        id="to_destination">
+                    <option n:foreach="$destinationsData as $item" value="{$item[id]}"
+                                                                   data-type="{$item[type]}" {if $defaultTo === $item[id]}selected="selected"{/if}>{$item[name]}</option>
+                </select>
+            </div>
+            <div class="col-lg-1">
+                {input submit class => 'search-form-submit'}
+            </div>
+        </div>
+    {/form}
+{/snippet}
+<script>
+    (function() {
+        function formatState(state) {
+            if(!state.id) {
+                return state.text;
+            }
+            return $(
+                '<span><img alt="destination type icon" class="select-destination-icon" src="../img/destination_' + $(state.element).data('type') + '.svg">' + state.text + '</span>'
+            );
+        }
+
+        jQuery(".selectize_dropdown").select2({
+            theme             : "bootstrap4",
+            templateResult    : formatState,
+            templateSelection : formatState
+        });
+    })(window.jQuery);
+</script>

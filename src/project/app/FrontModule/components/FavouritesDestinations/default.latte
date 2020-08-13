@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <ul class="menu_list">
+            {foreach $destinations as $destination}
+                <li>
+                    <div class="thumb">
+                        <img src="{$destination['photo']}" alt="{$destination['name']}">
+                    </div>
+                    <h6>{$destination['name']}</h6>
+                </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>

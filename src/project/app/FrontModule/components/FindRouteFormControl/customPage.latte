@@ -1,0 +1,72 @@
+<aside class="col-lg-4" id="sidebar">
+    <div class="box_detail booking">
+        <div class="price">
+            <h5 class="d-inline">Check for available transport</h5>
+        </div>
+        {snippet routeForm}
+            {form form}
+                <div class="form-group col-sm-12 col-md-12 clear-padding">
+                    {label from}{/label}
+                    <select name="from" class="form-control selectize_dropdown" aria-describedby="From destination">
+                        <option n:foreach="$destinationsData as $item" value="{$item[id]}"
+                                                                       data-type="{$item[type]}" {if $defaultFrom === $item[id]}selected="selected"{/if}>{$item[name]}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 clear-padding">
+                    {label to}{/label}
+                    <select name="to" class="form-control selectize_dropdown" aria-describedby="To destination">
+                        <option n:foreach="$destinationsData as $item" value="{$item[id]}"
+                                                                       data-type="{$item[type]}" {if $defaultTo === $item[id]}selected="selected"{/if}>{$item[name]}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 clear-padding">
+                    {label date}{/label}
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                        </div>
+                        {input date class=>'form-control formDatePicker', required => true, placeholder => 'Date of your departure', autocomplete => off, data-alt-format => "Y-m-d"}
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 clear-padding">
+                    {label time}{/label}
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="ti-alarm-clock"></span></span>
+                        </div>
+                        {input time class=>'form-control formTimePicker', required => true, placeholder => 'Time of your departure', autocomplete => off, data-alt-format => "H:i"}
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 clear-padding">
+                    {label passengers}{/label}
+                    <div class="input-group passengers-find-route-input">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="ti-user"></span></span>
+                        </div>
+                        {input passengers class=>'form-control', required => true, min => 0}
+                    </div>
+                </div>
+                {input submit class => ' add_top_30 btn_1 full-width purchase'}
+            {/form}
+        {/snippet}
+    </div>
+</aside>
+
+<script>
+    (function() {
+        function formatState(state) {
+            if(!state.id) {
+                return state.text;
+            }
+            return $(
+                '<span><img alt="destination type icon" class="select-destination-icon" src="../img/destination_' + $(state.element).data('type') + '.svg">' + state.text + '</span>'
+            );
+        }
+
+        jQuery(".selectize_dropdown").select2({
+            theme             : "bootstrap4",
+            templateResult    : formatState,
+            templateSelection : formatState
+        });
+    })(window.jQuery);
+</script>

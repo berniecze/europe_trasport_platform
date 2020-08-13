@@ -1,0 +1,76 @@
+{block content}
+
+<main>
+    {control mainPageNavigation}
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+
+    <div id="results">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#0" class="search_mob btn_search_mobile"></a> <!-- /open search panel -->
+                    {control findRouteForm}
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /results -->
+
+    <div class="container margin_60_35">
+        <div class="price-description">
+            <h1>Private transfer from any location in {$fromDestinationName} to any location in {$toDestinationName}</h1>
+            <hr/>
+            <p>The price already includes: </p>
+            <ul>
+                <li>English Speaking Driver</li>
+                <li>Free WiFi</li>
+                <li>Free bottled water</li>
+                <li>Taxes, fees, fuel, parking</li>
+                <li>Free cancellation up to 12 hours before the planned journey.</li>
+            </ul>
+        </div>
+        <div class="box_booking">
+            {if count($transports) > 0}
+                {foreach $transports as $transport}
+                    <div class="strip_booking">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2">
+                                <img src="{$transport['photoUrl']}" alt="transport car for your route"
+                                     style="width: 100%;">
+                            </div>
+                            <div class="col-lg-5 col-md-5">
+                                <h3 class="transport-name">{$transport['name']}</h3>
+                                Private taxi - vehicle exclusively for you
+                            </div>
+
+                            <div class="col-lg-3 col-md-3">
+                                <ul class="info_booking">
+                                    <li><strong>Capacity</strong> {$transport['capacity']} passangers</li>
+                                    <li><strong>Luggage</strong> {$transport['luggage']} pcs of baggage</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <span style="color: red; font-size: 1.5rem;">{$transport['totalPrice']}€</span>
+                                <br>
+                                Price per car
+                                <div class="booking_buttons">
+                                    <a n:href="Checkout:useTransport transport => $transport['id']" class="btn_2">BOOK</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                    </div>
+                {/foreach}
+                <!-- /strip booking -->
+            {else}
+                <div class="strip_booking">
+                    <div class="row text-center">
+                        <p>We are sorry but it looks like we are booked for this day</p>
+                    </div>
+                </div>
+            {/if}
+        </div>
+    </div>
+</main>

@@ -1,0 +1,24 @@
+{block content}
+    <div class="row destination_preview_row">
+        <div class="col-12 col-md-6">
+            <h1>{$name}</h1>
+            <p>Fixed: {$fixedPrice} € | {$multiplierPrice}</p>
+            <p>Capacity: {$capacity} persons | {$luggage} pcs</p>
+            {$description|noescape}
+        </div>
+        <div class="col-12 col-md-6">
+            <img src="{$photo}"/>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Edit car
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {control transportForm}
+            </div>
+        </div>
+    </div>
+{/block}

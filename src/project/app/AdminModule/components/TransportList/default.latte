@@ -1,0 +1,48 @@
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Luggage</th>
+        <th>Fixed price</th>
+        <th>Multiplier price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Luggage</th>
+        <th>Fixed price</th>
+        <th>Multiplier price</th>
+        <th>Action</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    {foreach $transports as $transport}
+        <tr>
+            <td>{$transport->getName()->getValue()}</td>
+            {if $transport->getActive()->getValue()}
+                <td>YES</td>
+            {else}
+                <td>NO</td>
+            {/if}
+            <td>{$transport->getLuggage()->getValue()} pcs</td>
+            <td>{$transport->getFixedPrice()->getValue()}€</td>
+            <td>x{$transport->getMultiplierPrice()->getValue()}</td>
+            <td>
+                <a href="{plink Transport:edit $transport->getId()}">
+                    <i class="fa fa-lg fa-edit"></i>
+                </a>
+                <a href="{plink Transport:blacklist $transport->getId()}">
+                    <i class="fa fa-lg fa-list"></i>
+                </a>
+                <a href="{plink Transport:delete $transport->getId()}">
+                    <i class="fa fa-lg fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

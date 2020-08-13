@@ -1,0 +1,21 @@
+<!-- config/xml/Product.dcm.xml -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Domain\Entity\Transport\Transport" table="transport">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY" />
+        </id>
+        <!--embedded class="Domain\Entity\Transport\ValueObject\Id" name="id" use-column-prefix="false"/-->
+        <embedded class="Domain\Entity\Transport\ValueObject\Active" name="active" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\Name" name="name" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\PhotoUrl" name="photoUrl" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\Capacity" name="capacity" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\Luggage" name="luggage" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\FixedPrice" name="fixedPrice" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\MultiplierPrice" name="multiplierPrice" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Transport\ValueObject\Description" name="description" use-column-prefix="false"/>
+    </entity>
+</doctrine-mapping>

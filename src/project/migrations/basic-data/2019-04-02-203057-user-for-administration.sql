@@ -1,0 +1,1 @@
+INSERT INTO `user` (`username`, `password`, `email`, `role`) VALUES ('bernasek', '$2y$10$0SkHhLzTaJstjXn0M192TuO0xizYPi6Hq9UyOPmFet4QsyvcFDPIS', 'john@doe.cz', 'administrator')

@@ -1,0 +1,120 @@
+{block content}
+
+<main>
+    {control mainPageNavigation}
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    <section class="hero_single version_5">
+        <div class="wrapper">
+            <div class="container">
+                <div class="row justify-content-center pt-lg-5">
+                    <div class="col-xl-5 col-lg-6">
+                        <h3>Let's travel!</h3>
+                        <p>The most favourite choice for Europe transport!</p>
+                        {control findRouteForm}
+                    </div>
+                    <div class="col-xl-5 col-lg-6 text-right d-none d-lg-block">
+                        <img src="{$basePath}/img/graphic_home_2.svg" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="call_section image_bg">
+        <div class="wrapper">
+            <div class="container margin_80_55">
+                <div class="main_title_2">
+                    <span><em></em></span>
+                    <h2>How it Works</h2>
+                    <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box_how wow">
+                            <i class="pe-7s-search"></i>
+                            <h3>Search Locations</h3>
+                            <p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent
+                               eloquentiam id.</p>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box_how">
+                            <i class="pe-7s-info"></i>
+                            <h3>View Location Info</h3>
+                            <p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent
+                               eloquentiam id.</p>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box_how">
+                            <i class="pe-7s-like2"></i>
+                            <h3>Book, Reach or Call</h3>
+                            <p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent
+                               eloquentiam id.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+                <p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5"><a href="register.html"
+                                                                                       class="btn_1 rounded">Register
+                                                                                                             Now</a></p>
+            </div>
+        </div>
+        <!-- /wrapper -->
+    </div>
+
+    <div class="container margin_60_35">
+        <div class="main_title_3">
+            <span></span>
+            <h2>Most visited destinations</h2>
+            <a href="grid-listings-filterscol.html">See all</a>
+        </div>
+        <div class="row add_bottom_30">
+            <div class="col-lg-3 col-sm-6">
+                <a href="detail-shop.html" class="grid_item small">
+                    <figure>
+                        <img src="{$basePath}/img/shop_1.jpg" alt="">
+                        <div class="info">
+                            <h3>Prague Vaclav Havel airport</h3>
+                        </div>
+                    </figure>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <a href="detail-shop.html" class="grid_item small">
+                    <figure>
+                        <img src="{$basePath}/img/shop_2.jpg" alt="">
+                        <div class="info">
+                            <h3>Berlin</h3>
+                        </div>
+                    </figure>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <a href="detail-shop.html" class="grid_item small">
+                    <figure>
+                        <img src="{$basePath}/img/shop_3.jpg" alt="">
+                        <div class="info">
+                            <h3>Vienna</h3>
+                        </div>
+                    </figure>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <a href="detail-shop.html" class="grid_item small">
+                    <figure>
+                        <img src="{$basePath}/img/shop_4.jpg" alt="">
+                        <div class="info">
+                            <h3>Paris</h3>
+                        </div>
+                    </figure>
+                </a>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+
+
+</main>

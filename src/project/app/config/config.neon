@@ -1,0 +1,150 @@
+parameters:
+	hostname: 'http://127.0.0.1'
+application:
+	errorPresenter: Front:Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+extensions:
+	console: Kdyby\Console\DI\ConsoleExtension
+	events: Kdyby\Events\DI\EventsExtension
+	annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	doctrine: Kdyby\Doctrine\DI\OrmExtension
+	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+	selectize: App\Form\Control\SelectizeExtension
+
+doctrine:
+	host: %database.host%
+	user: %database.user%
+	password: %database.password%
+	dbname: %database.dbname%
+	metadata:
+		App\Model: %appDir%/model
+		Domain\Entity\Blacklist: xml(%appDir%/Infrastructure/Entity/Blacklist)
+		Domain\Entity\Blacklist\ValueObject: xml(%appDir%/Infrastructure/Entity/Blacklist/ValueObject)
+		Domain\Entity\Transport: xml(%appDir%/Infrastructure/Entity/Transport)
+		Domain\Entity\Transport\ValueObject: xml(%appDir%/Infrastructure/Entity/Transport/ValueObject)
+
+session:
+	expiration: 14 days
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=project'
+	user:
+	password:
+	options:
+		lazy: yes
+
+migrations:
+	dir: %appDir%/../migrations
+	driver: mysql
+	dbal: doctrine
+
+services:
+	- App\AdminModule\Components\BlacklistCollection\DataProvider
+	- App\AdminModule\Components\BlacklistCollection\ICollectionFactory
+	- App\AdminModule\Components\BlacklistForm\DataProvider
+	- App\AdminModule\Components\BlacklistForm\Handler
+	- App\AdminModule\Components\BlacklistForm\IBlacklistFormFactory
+	- App\AdminModule\Components\ClientOrderForm\Handler
+	- App\AdminModule\Components\ClientOrderForm\ClientOrderFormFactory
+	- App\AdminModule\Components\ChooseDriverForm\ChooseDriverFormFactory
+	- App\AdminModule\Components\ChooseDriverForm\Handler
+	- App\AdminModule\Components\CompanyForm\ICompanyFormFactory
+	- App\AdminModule\Components\CompanyForm\Handler
+	- App\AdminModule\Components\OrderList\IClientOrdersFactory
+	- App\AdminModule\Components\OrderList\DataProvider
+	- App\AdminModule\Components\DestinationForm\DataProvider
+	- App\AdminModule\Components\DestinationForm\DestinationFormFactory
+	- App\AdminModule\Components\DestinationForm\Handler
+	- App\AdminModule\Components\DestinationList\DataProvider
+	- App\AdminModule\Components\DestinationList\IListFactory
+	- App\AdminModule\Components\LoginForm\IFormFactory
+	- App\AdminModule\Components\MainPageNavigation\IMainNavigationFactory
+	- App\AdminModule\Components\PageControl\DataProvider
+	- App\AdminModule\Components\PageControl\IPageControlFactory
+	- App\AdminModule\Components\PageControl\Handler
+	- App\AdminModule\Components\PageList\DataProvider
+	- App\AdminModule\Components\PageList\IPageListFactory
+	- App\AdminModule\Components\RouteForm\RouteFormFactory
+	- App\AdminModule\Components\RouteForm\Handler
+	- App\AdminModule\Components\RouteForm\DataProvider
+	- App\AdminModule\Components\RouteList\IListFactory
+	- App\AdminModule\Components\RouteList\DataProvider
+	- App\AdminModule\Components\TransportForm\IFormFactory
+	- App\AdminModule\Components\TransportForm\Handler
+	- App\AdminModule\Components\TransportList\DataProvider
+	- App\AdminModule\Components\TransportList\IListFactory
+	- App\Model\PhotoService(%hostname%)
+	- App\Model\UserManager
+	- App\Model\Blacklist\BlacklistRepository
+	- App\Model\Destination\DestinationRepository
+	- App\Model\Destination\DestinationService
+	- App\Model\Cart\CartRepository
+	- App\Model\Cart\CartService
+	- App\Model\Cart\CartValidityService
+	- App\Model\Company\CompanyService
+	- App\Model\Company\CompanyRepository
+	- App\Model\Country\CountryRepository
+	- App\Model\ClientOrder\ClientOrderRepository
+	- App\Model\ClientOrder\ClientOrderService
+	- App\Model\DefaultData\DefaultDataService
+	- App\Model\Driver\DriverService
+	- App\Model\Route\RouteRepository
+	- App\Model\Route\RouteService
+	- App\Model\Page\PageRepository
+	- App\Model\Page\PageService
+	- App\Model\User\UserRepository
+	- App\Model\Transport\TransportPriceCalculator
+	- App\Model\Transport\TransportRepository
+	- App\FrontModule\Components\DestinationFooter\DataProvider
+	- App\FrontModule\Components\ClientOrderPayment\IOrderPaymentFormFactory
+	- App\FrontModule\Components\DestinationFooter\IDestinationFooterFactory
+	- App\FrontModule\Components\FavouritesDestinations\DataProvider
+	- App\FrontModule\Components\FavouritesDestinations\IFavouritesDestinationFactory
+	- App\FrontModule\Components\FindRouteFormControl\FormControl
+	- App\FrontModule\Components\FindRouteFormControl\IFormFactory
+	- App\FrontModule\Components\FindRouteFormControl\Handler
+	- App\FrontModule\Components\CartAddressForm\Handler
+	- App\FrontModule\Components\CartAddressForm\IFormFactory
+	- App\FrontModule\Components\CartAddressForm\DataProvider
+	- App\FrontModule\Components\CustomPage\ICustomPageFactory
+	- App\FrontModule\Components\CustomPage\DataProvider
+	- App\FrontModule\Components\FindRouteFormControl\DataProvider
+	- App\Model\DateTimeService
+	- App\FrontModule\Components\MainPageNavigation\IMainPageNavigationFactory
+	- App\FrontModule\Components\MainPageNavigation\MainPageNavigation
+	- App\Router\RouterFactory
+
+	- Application\Blacklist\UseCase\CreateBlacklistUseCase
+	- Application\Blacklist\UseCase\GetAllBlacklistUseCase
+	- Application\Blacklist\UseCase\GetBlacklistByTransportUseCase
+	- Application\Blacklist\UseCase\GetBlacklistUseCase
+	- Application\Blacklist\UseCase\RemoveBlacklistUseCase
+	- Application\Blacklist\UseCase\UpdateBlacklistUseCase
+
+	- Application\Transport\UseCase\CreateTransportUseCase
+	- Application\Transport\UseCase\GetTransportUseCase
+	- Application\Transport\UseCase\GetAllTransportUseCase
+	- Application\Transport\UseCase\GetTransportMaximalCapacityUseCase
+	- Application\Transport\UseCase\RemoveTransportUseCase
+	- Application\Transport\UseCase\UpdateTransportUseCase
+
+	- Infrastructure\Repository\Blacklist\BlacklistRepository
+	- Infrastructure\Repository\Transport\TransportRepository
+
+	- Infrastructure\Service\BlacklistService
+	- Infrastructure\Service\TransportService
+
+	router: @App\Router\RouterFactory::createRouter
+
+selectize:
+	mode: full
+	create: on
+	maxItems: null
+	delimiter: #/
+	plugins:
+		- remove_button
+	valueField: id
+	labelField: name
+	searchField: name

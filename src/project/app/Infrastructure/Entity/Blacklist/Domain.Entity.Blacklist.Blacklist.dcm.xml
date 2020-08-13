@@ -1,0 +1,18 @@
+<!-- config/xml/Product.dcm.xml -->
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Domain\Entity\Blacklist\Blacklist" table="blacklist">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY" />
+        </id>
+        <embedded class="Domain\Entity\Blacklist\ValueObject\FromDate" name="fromDate" use-column-prefix="false"/>
+        <embedded class="Domain\Entity\Blacklist\ValueObject\ToDate" name="toDate" use-column-prefix="false"/>
+
+        <many-to-one field="transport" target-entity="Domain\Entity\Transport\Transport">
+            <join-column name="transport_id" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
